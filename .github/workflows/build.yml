@@ -32,7 +32,8 @@ jobs:
             -scheme SwiftUITodo \
             -sdk iphoneos \
             -configuration Release \
-            CODE_SIGNING_ALLOWED=NO
+            CODE_SIGNING_ALLOWED=NO \
+            CONFIGURATION_BUILD_DIR=build/Release-iphoneos
 
       - name: Package IPA
         run: |
