@@ -34,6 +34,8 @@ jobs:
           for variant in Ti S M B; do
             test -d "$app/RapidNet_${variant}.mlmodelc"
           done
+          test -d "$app/RapidNet_M_Semantic.mlmodelc"
+          test -f "$app/RapidNet_ADE20K.json"
           mkdir -p "$RUNNER_TEMP/rapidnet-ipa/Payload"
           ditto "$app" "$RUNNER_TEMP/rapidnet-ipa/Payload/SwiftUITodo.app"
           cd "$RUNNER_TEMP/rapidnet-ipa"

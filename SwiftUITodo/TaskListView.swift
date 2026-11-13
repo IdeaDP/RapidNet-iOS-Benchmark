@@ -9,6 +9,7 @@ struct TaskListView: View {
     @State private var selection = "M"
     @State private var resultText = "50 rounds · 50 predictions per round · trim 10 at each end"
     @State private var isRunning = false
+    @State private var showCamera = false
 
     var body: some View {
         VStack(spacing: 20) {
@@ -29,8 +30,23 @@ struct TaskListView: View {
             Button("Run Benchmark", action: runBenchmark)
                 .buttonStyle(.borderedProminent)
                 .disabled(isRunning || variants.isEmpty)
+
+            Button("Open Segmentation Camera") { showCamera = true }
+                .disabled(isRunning)
         }
         .padding()
+        .sheet(isPresented: $showCamera) {
+            NavigationStack {
+                SegmentationCamera()
+                    .navigationTitle("Semantic segmentation")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button("Done") { showCamera = false }
+                        }
+                    }
+            }
+        }
         .onAppear {
             if !variants.contains(selection), let first = variants.first {
                 selection = first

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1B2C3D4E5F6010203040513 /* RapidNet_ADE20K.json in Resources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6010203040512 /* RapidNet_ADE20K.json */; };
+		A1B2C3D4E5F6010203040511 /* RapidNet_M_Semantic.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6010203040510 /* RapidNet_M_Semantic.mlmodel */; };
+		A1B2C3D4E5F601020304050F /* SegmentationCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F601020304050E /* SegmentationCamera.swift */; };
 		A1B2C3D4E5F601020304050D /* RapidNet_B.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F601020304050C /* RapidNet_B.mlmodel */; };
 		A1B2C3D4E5F601020304050B /* RapidNet_S.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F601020304050A /* RapidNet_S.mlmodel */; };
 		A1B2C3D4E5F6010203040509 /* RapidNet_Ti.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6010203040508 /* RapidNet_Ti.mlmodel */; };
@@ -20,6 +23,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A1B2C3D4E5F6010203040512 /* RapidNet_ADE20K.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RapidNet_ADE20K.json; sourceTree = "<group>"; };
+		A1B2C3D4E5F6010203040510 /* RapidNet_M_Semantic.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = RapidNet_M_Semantic.mlmodel; sourceTree = "<group>"; };
+		A1B2C3D4E5F601020304050E /* SegmentationCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentationCamera.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F601020304050C /* RapidNet_B.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = RapidNet_B.mlmodel; sourceTree = "<group>"; };
 		A1B2C3D4E5F601020304050A /* RapidNet_S.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = RapidNet_S.mlmodel; sourceTree = "<group>"; };
 		A1B2C3D4E5F6010203040508 /* RapidNet_Ti.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = RapidNet_Ti.mlmodel; sourceTree = "<group>"; };
@@ -75,6 +81,9 @@
 				031596C122A5BDE8001BBA1B /* Task.swift */,
 				031596B122A5BDBA001BBA1B /* TaskListView.swift */,
 				A1B2C3D4E5F6010203040506 /* RapidNet_M.mlmodel */,
+				A1B2C3D4E5F6010203040512 /* RapidNet_ADE20K.json */,
+				A1B2C3D4E5F6010203040510 /* RapidNet_M_Semantic.mlmodel */,
+				A1B2C3D4E5F601020304050E /* SegmentationCamera.swift */,
 				A1B2C3D4E5F601020304050C /* RapidNet_B.mlmodel */,
 				A1B2C3D4E5F601020304050A /* RapidNet_S.mlmodel */,
 				A1B2C3D4E5F6010203040508 /* RapidNet_Ti.mlmodel */,
@@ -155,6 +164,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1B2C3D4E5F6010203040513 /* RapidNet_ADE20K.json in Resources */,
 				031596BA22A5BDBB001BBA1B /* LaunchScreen.storyboard in Resources */,
 				031596B722A5BDBB001BBA1B /* Preview Assets.xcassets in Resources */,
 				031596B422A5BDBB001BBA1B /* Assets.xcassets in Resources */,
@@ -168,6 +178,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1B2C3D4E5F6010203040511 /* RapidNet_M_Semantic.mlmodel in Sources */,
+				A1B2C3D4E5F601020304050F /* SegmentationCamera.swift in Sources */,
 				031596AE22A5BDBA001BBA1B /* AppDelegate.swift in Sources */,
 				031596B022A5BDBA001BBA1B /* SceneDelegate.swift in Sources */,
 				031596B222A5BDBA001BBA1B /* TaskListView.swift in Sources */,

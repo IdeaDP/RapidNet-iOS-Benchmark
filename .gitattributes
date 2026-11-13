@@ -1,1 +1,2 @@
 SwiftUITodo/RapidNet_B.mlmodel filter=lfs diff=lfs merge=lfs -text
+SwiftUITodo/RapidNet_M_Semantic.mlmodel filter=lfs diff=lfs merge=lfs -text
