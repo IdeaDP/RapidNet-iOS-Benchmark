@@ -1,48 +1,44 @@
 name: Build iOS IPA
 
 on:
-  push:
-    branches: [ "main", "master" ]
   workflow_dispatch:
+  push:
+    branches: [main, master]
+
+permissions:
+  contents: read
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-15
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
 
-      - name: Inject MLModel into Xcode Project
+      - name: Build for iPhone
         run: |
-          gem install xcodeproj
-          ruby -e "
-          require 'xcodeproj'
-          project = Xcodeproj::Project.open('SwiftUITodo.xcodeproj')
-          target = project.targets.first
-          file = project.new_file('SwiftUITodo/RapidNet_M.mlmodel')
-          target.source_build_phase.add_file_reference(file)
-          project.save
-          "
-
-      - name: Build Xcode Project
-        run: |
-          xcodebuild clean build \
+          xcodebuild build \
             -project SwiftUITodo.xcodeproj \
             -scheme SwiftUITodo \
-            -sdk iphoneos \
             -configuration Release \
-            CODE_SIGNING_ALLOWED=NO \
-            CONFIGURATION_BUILD_DIR=build/Release-iphoneos
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath "$RUNNER_TEMP/rapidnet-build" \
+            CODE_SIGNING_ALLOWED=NO
 
-      - name: Package IPA
+      - name: Package IPA for local signing
         run: |
-          mkdir -p Payload
-          mv build/Release-iphoneos/SwiftUITodo.app Payload/
-          zip -r BenchmarkApp.ipa Payload
+          app="$RUNNER_TEMP/rapidnet-build/Build/Products/Release-iphoneos/SwiftUITodo.app"
+          test -x "$app/SwiftUITodo"
+          test -d "$app/RapidNet_M.mlmodelc"
+          mkdir -p "$RUNNER_TEMP/rapidnet-ipa/Payload"
+          ditto "$app" "$RUNNER_TEMP/rapidnet-ipa/Payload/SwiftUITodo.app"
+          cd "$RUNNER_TEMP/rapidnet-ipa"
+          ditto -c -k --keepParent Payload "$GITHUB_WORKSPACE/BenchmarkApp.ipa"
 
-      - name: Upload IPA Artifact
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: BenchmarkApp-IPA
           path: BenchmarkApp.ipa
+          if-no-files-found: error

@@ -7,20 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1B2C3D4E5F6010203040507 /* RapidNet_M.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6010203040506 /* RapidNet_M.mlmodel */; };
 		031596AE22A5BDBA001BBA1B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031596AD22A5BDBA001BBA1B /* AppDelegate.swift */; };
 		031596B022A5BDBA001BBA1B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031596AF22A5BDBA001BBA1B /* SceneDelegate.swift */; };
 		031596B222A5BDBA001BBA1B /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031596B122A5BDBA001BBA1B /* TaskListView.swift */; };
 		031596B422A5BDBB001BBA1B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 031596B322A5BDBB001BBA1B /* Assets.xcassets */; };
 		031596B722A5BDBB001BBA1B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 031596B622A5BDBB001BBA1B /* Preview Assets.xcassets */; };
 		031596BA22A5BDBB001BBA1B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 031596B822A5BDBB001BBA1B /* LaunchScreen.storyboard */; };
-		031596C222A5BDE8001BBA1B /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031596C122A5BDE8001BBA1B /* Task.swift */; };
-		031596C822A5C661001BBA1B /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031596C722A5C661001BBA1B /* UserData.swift */; };
-		031596CA22A5DDE0001BBA1B /* TaskEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031596C922A5DDE0001BBA1B /* TaskEditView.swift */; };
-		031596CC22A5F360001BBA1B /* TaskItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031596CB22A5F360001BBA1B /* TaskItemView.swift */; };
-		C8E0A25922A789D100E940E8 /* UserDefaultsValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E0A25822A789D100E940E8 /* UserDefaultsValue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A1B2C3D4E5F6010203040506 /* RapidNet_M.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = RapidNet_M.mlmodel; sourceTree = "<group>"; };
 		031596AA22A5BDBA001BBA1B /* SwiftUITodo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftUITodo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		031596AD22A5BDBA001BBA1B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		031596AF22A5BDBA001BBA1B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -71,6 +68,7 @@
 				031596C722A5C661001BBA1B /* UserData.swift */,
 				031596C122A5BDE8001BBA1B /* Task.swift */,
 				031596B122A5BDBA001BBA1B /* TaskListView.swift */,
+				A1B2C3D4E5F6010203040506 /* RapidNet_M.mlmodel */,
 				031596CB22A5F360001BBA1B /* TaskItemView.swift */,
 				031596C922A5DDE0001BBA1B /* TaskEditView.swift */,
 				C8E0A25822A789D100E940E8 /* UserDefaultsValue.swift */,
@@ -161,14 +159,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				031596C222A5BDE8001BBA1B /* Task.swift in Sources */,
 				031596AE22A5BDBA001BBA1B /* AppDelegate.swift in Sources */,
-				031596C822A5C661001BBA1B /* UserData.swift in Sources */,
-				031596CC22A5F360001BBA1B /* TaskItemView.swift in Sources */,
-				031596CA22A5DDE0001BBA1B /* TaskEditView.swift in Sources */,
 				031596B022A5BDBA001BBA1B /* SceneDelegate.swift in Sources */,
-				C8E0A25922A789D100E940E8 /* UserDefaultsValue.swift in Sources */,
 				031596B222A5BDBA001BBA1B /* TaskListView.swift in Sources */,
+				A1B2C3D4E5F6010203040507 /* RapidNet_M.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,7 +230,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -290,7 +284,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -306,14 +300,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "SwiftUITodo/Preview\\ Content";
-				DEVELOPMENT_TEAM = N2C267LBVY;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = SwiftUITodo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kr.xoul.SwiftUITodo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ideadp.rapidnetbenchmark;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -326,14 +319,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "SwiftUITodo/Preview\\ Content";
-				DEVELOPMENT_TEAM = N2C267LBVY;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = SwiftUITodo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kr.xoul.SwiftUITodo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ideadp.rapidnetbenchmark;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
