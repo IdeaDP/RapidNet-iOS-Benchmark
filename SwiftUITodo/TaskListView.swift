@@ -10,6 +10,7 @@ struct TaskListView: View {
     @State private var resultText = "50 rounds · 50 predictions per round · trim 10 at each end"
     @State private var isRunning = false
     @State private var showCamera = false
+    @State private var detectsObjects = false
 
     var body: some View {
         VStack(spacing: 20) {
@@ -31,14 +32,22 @@ struct TaskListView: View {
                 .buttonStyle(.borderedProminent)
                 .disabled(isRunning || variants.isEmpty)
 
-            Button("Open Segmentation Camera") { showCamera = true }
+            Button("Open Segmentation Camera") {
+                detectsObjects = false
+                showCamera = true
+            }
+                .disabled(isRunning)
+            Button("Open Detection Camera") {
+                detectsObjects = true
+                showCamera = true
+            }
                 .disabled(isRunning)
         }
         .padding()
         .sheet(isPresented: $showCamera) {
             NavigationStack {
-                SegmentationCamera()
-                    .navigationTitle("Semantic segmentation")
+                SegmentationCamera(detectsObjects: detectsObjects)
+                    .navigationTitle(detectsObjects ? "Object detection" : "Semantic segmentation")
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
                         ToolbarItem(placement: .cancellationAction) {

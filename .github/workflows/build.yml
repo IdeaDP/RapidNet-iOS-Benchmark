@@ -36,6 +36,9 @@ jobs:
           done
           test -d "$app/RapidNet_M_Semantic.mlmodelc"
           test -f "$app/RapidNet_ADE20K.json"
+          test -d "$app/RapidNet_M_DetectorFeatures.mlmodelc"
+          test -d "$app/RapidNet_M_BoxHead.mlmodelc"
+          test -f "$app/RapidNet_COCO.json"
           mkdir -p "$RUNNER_TEMP/rapidnet-ipa/Payload"
           ditto "$app" "$RUNNER_TEMP/rapidnet-ipa/Payload/SwiftUITodo.app"
           cd "$RUNNER_TEMP/rapidnet-ipa"

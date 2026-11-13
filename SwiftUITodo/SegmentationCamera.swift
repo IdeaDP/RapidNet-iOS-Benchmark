@@ -6,8 +6,10 @@ import SwiftUI
 import UIKit
 
 struct SegmentationCamera: UIViewControllerRepresentable {
+    var detectsObjects = false
+
     func makeUIViewController(context: Context) -> SegmentationCameraController {
-        SegmentationCameraController()
+        SegmentationCameraController(detectsObjects: detectsObjects)
     }
 
     func updateUIViewController(_ controller: SegmentationCameraController, context: Context) {}
@@ -16,9 +18,16 @@ struct SegmentationCamera: UIViewControllerRepresentable {
 final class SegmentationCameraController: UIViewController {
     private let session = AVCaptureSession()
     private let captureQueue = DispatchQueue(label: "rapidnet.camera.capture", qos: .userInitiated)
-    private let frames = SegmentationFrames()
+    private let frames: SegmentationFrames
     private let imageView = UIImageView()
     private let status = UILabel()
+
+    init(detectsObjects: Bool) {
+        frames = SegmentationFrames(detectsObjects: detectsObjects)
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) { nil }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,6 +136,8 @@ private final class SegmentationFrames: NSObject, AVCaptureVideoDataOutputSample
     private let inputSize = 512
     private let opacity: UInt8 = 110
     private var model: MLModel?
+    private var detector: RapidNetDetector?
+    private let detectsObjects: Bool
     private var input: MLMultiArray?
     private var features: MLDictionaryFeatureProvider?
     private var palette: [[UInt8]] = []
@@ -138,7 +149,18 @@ private final class SegmentationFrames: NSObject, AVCaptureVideoDataOutputSample
         let palette: [[UInt8]]
     }
 
+    init(detectsObjects: Bool) {
+        self.detectsObjects = detectsObjects
+    }
+
     func loadModel() throws {
+        let tensor = try MLMultiArray(shape: [1, 3, 512, 512], dataType: .float32)
+        features = try MLDictionaryFeatureProvider(dictionary: ["inputs": tensor])
+        input = tensor
+        if detectsObjects {
+            detector = try RapidNetDetector()
+            return
+        }
         guard let url = Bundle.main.url(forResource: "RapidNet_M_Semantic", withExtension: "mlmodelc"),
               let colors = Bundle.main.url(forResource: "RapidNet_ADE20K", withExtension: "json") else {
             throw SegmentationError.message("The segmentation model or its color palette is missing.")
@@ -150,39 +172,76 @@ private final class SegmentationFrames: NSObject, AVCaptureVideoDataOutputSample
         guard palette.count == 150, palette.allSatisfy({ $0.count == 3 }) else {
             throw SegmentationError.message("The segmentation color palette is invalid.")
         }
-        let tensor = try MLMultiArray(shape: [1, 3, 512, 512], dataType: .float32)
-        features = try MLDictionaryFeatureProvider(dictionary: ["inputs": tensor])
-        input = tensor
     }
 
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer,
                        from connection: AVCaptureConnection) {
         guard !failureReported, let buffer = CMSampleBufferGetImageBuffer(sampleBuffer),
-              let model, let input, let features else { return }
+              let input, let features else { return }
         do {
             guard let square = prepare(buffer, into: input) else {
                 throw SegmentationError.message("Could not read the camera frame.")
             }
             let clock = ProcessInfo.processInfo
             let predictionStart = clock.systemUptime
-            let result = try model.prediction(from: features)
-            let milliseconds = (clock.systemUptime - predictionStart) * 1_000
-            guard let classes = result.featureValue(for: "class_map")?.multiArrayValue,
-                  let mask = makeMask(classes),
-                  let image = context.createCGImage(mask.composited(over: square), from: square.extent) else {
-                throw SegmentationError.message("The model returned an unexpected mask.")
+            let image: CGImage
+            let milliseconds: Double
+            if let detector {
+                let detections = try detector.predict(features)
+                milliseconds = (clock.systemUptime - predictionStart) * 1_000
+                guard let rendered = drawBoxes(detections, over: square) else {
+                    throw SegmentationError.message("Could not draw the detection preview.")
+                }
+                image = rendered
+            } else {
+                guard let model else { return }
+                let result = try model.prediction(from: features)
+                milliseconds = (clock.systemUptime - predictionStart) * 1_000
+                guard let classes = result.featureValue(for: "class_map")?.multiArrayValue,
+                      let mask = makeMask(classes),
+                      let rendered = context.createCGImage(mask.composited(over: square), from: square.extent) else {
+                    throw SegmentationError.message("The model returned an unexpected mask.")
+                }
+                image = rendered
             }
             let now = clock.systemUptime
             if frameCount == 0 { start = now }
             frameCount += 1
             let fps = Double(frameCount - 1) / max(now - start, 0.001)
-            let metrics = String(format: "RapidNet-M · 512×512\n%.1f ms model time · %.1f processed FPS", milliseconds, fps)
+            let timing = detectsObjects ? "detector time" : "model time"
+            let metrics = String(format: "RapidNet-M · 512×512\n%.1f ms \(timing) · %.1f processed FPS", milliseconds, fps)
             DispatchQueue.main.async { [weak self] in self?.onFrame?(image, metrics) }
         } catch {
             failureReported = true
             let message = error.localizedDescription
             DispatchQueue.main.async { [weak self] in self?.onError?(message) }
         }
+    }
+
+    private func drawBoxes(_ detections: [RapidNetDetector.Detection], over frame: CIImage) -> CGImage? {
+        guard let image = context.createCGImage(frame, from: frame.extent) else { return nil }
+        let bounds = CGRect(x: 0, y: 0, width: image.width, height: image.height)
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 1
+        format.opaque = true
+        return UIGraphicsImageRenderer(bounds: bounds, format: format).image { renderer in
+            UIImage(cgImage: image).draw(in: bounds)
+            let font = UIFont.boldSystemFont(ofSize: 15)
+            let color = UIColor.systemYellow
+            for detection in detections {
+                renderer.cgContext.setStrokeColor(color.cgColor)
+                renderer.cgContext.setLineWidth(3)
+                renderer.cgContext.stroke(detection.box.insetBy(dx: 1.5, dy: 1.5))
+                let label = "\(detection.label) \(Int((detection.score * 100).rounded()))%" as NSString
+                let attributes: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor: UIColor.black]
+                let size = label.size(withAttributes: attributes)
+                let x = min(detection.box.minX, bounds.width - size.width - 8)
+                let y = max(0, detection.box.minY - size.height - 5)
+                color.setFill()
+                renderer.fill(CGRect(x: x, y: y, width: size.width + 8, height: size.height + 5))
+                label.draw(at: CGPoint(x: x + 4, y: y + 2), withAttributes: attributes)
+            }
+        }.cgImage
     }
 
     private func prepare(_ buffer: CVPixelBuffer, into input: MLMultiArray) -> CIImage? {

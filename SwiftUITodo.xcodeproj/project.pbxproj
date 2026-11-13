@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1B2C3D4E5F601020304051B /* RapidNet_COCO.json in Resources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F601020304051A /* RapidNet_COCO.json */; };
+		A1B2C3D4E5F6010203040519 /* RapidNet_M_BoxHead.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6010203040518 /* RapidNet_M_BoxHead.mlmodel */; };
+		A1B2C3D4E5F6010203040517 /* RapidNet_M_DetectorFeatures.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6010203040516 /* RapidNet_M_DetectorFeatures.mlmodel */; };
+		A1B2C3D4E5F6010203040515 /* RapidNetDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6010203040514 /* RapidNetDetector.swift */; };
 		A1B2C3D4E5F6010203040513 /* RapidNet_ADE20K.json in Resources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6010203040512 /* RapidNet_ADE20K.json */; };
 		A1B2C3D4E5F6010203040511 /* RapidNet_M_Semantic.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6010203040510 /* RapidNet_M_Semantic.mlmodel */; };
 		A1B2C3D4E5F601020304050F /* SegmentationCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F601020304050E /* SegmentationCamera.swift */; };
@@ -23,6 +27,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A1B2C3D4E5F601020304051A /* RapidNet_COCO.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RapidNet_COCO.json; sourceTree = "<group>"; };
+		A1B2C3D4E5F6010203040518 /* RapidNet_M_BoxHead.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = RapidNet_M_BoxHead.mlmodel; sourceTree = "<group>"; };
+		A1B2C3D4E5F6010203040516 /* RapidNet_M_DetectorFeatures.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = RapidNet_M_DetectorFeatures.mlmodel; sourceTree = "<group>"; };
+		A1B2C3D4E5F6010203040514 /* RapidNetDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RapidNetDetector.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F6010203040512 /* RapidNet_ADE20K.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RapidNet_ADE20K.json; sourceTree = "<group>"; };
 		A1B2C3D4E5F6010203040510 /* RapidNet_M_Semantic.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = RapidNet_M_Semantic.mlmodel; sourceTree = "<group>"; };
 		A1B2C3D4E5F601020304050E /* SegmentationCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentationCamera.swift; sourceTree = "<group>"; };
@@ -81,6 +89,10 @@
 				031596C122A5BDE8001BBA1B /* Task.swift */,
 				031596B122A5BDBA001BBA1B /* TaskListView.swift */,
 				A1B2C3D4E5F6010203040506 /* RapidNet_M.mlmodel */,
+				A1B2C3D4E5F601020304051A /* RapidNet_COCO.json */,
+				A1B2C3D4E5F6010203040518 /* RapidNet_M_BoxHead.mlmodel */,
+				A1B2C3D4E5F6010203040516 /* RapidNet_M_DetectorFeatures.mlmodel */,
+				A1B2C3D4E5F6010203040514 /* RapidNetDetector.swift */,
 				A1B2C3D4E5F6010203040512 /* RapidNet_ADE20K.json */,
 				A1B2C3D4E5F6010203040510 /* RapidNet_M_Semantic.mlmodel */,
 				A1B2C3D4E5F601020304050E /* SegmentationCamera.swift */,
@@ -164,6 +176,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1B2C3D4E5F601020304051B /* RapidNet_COCO.json in Resources */,
 				A1B2C3D4E5F6010203040513 /* RapidNet_ADE20K.json in Resources */,
 				031596BA22A5BDBB001BBA1B /* LaunchScreen.storyboard in Resources */,
 				031596B722A5BDBB001BBA1B /* Preview Assets.xcassets in Resources */,
@@ -178,6 +191,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1B2C3D4E5F6010203040519 /* RapidNet_M_BoxHead.mlmodel in Sources */,
+				A1B2C3D4E5F6010203040517 /* RapidNet_M_DetectorFeatures.mlmodel in Sources */,
+				A1B2C3D4E5F6010203040515 /* RapidNetDetector.swift in Sources */,
 				A1B2C3D4E5F6010203040511 /* RapidNet_M_Semantic.mlmodel in Sources */,
 				A1B2C3D4E5F601020304050F /* SegmentationCamera.swift in Sources */,
 				031596AE22A5BDBA001BBA1B /* AppDelegate.swift in Sources */,
