@@ -31,7 +31,9 @@ jobs:
         run: |
           app="$RUNNER_TEMP/rapidnet-build/Build/Products/Release-iphoneos/SwiftUITodo.app"
           test -x "$app/SwiftUITodo"
-          test -d "$app/RapidNet_M.mlmodelc"
+          for variant in Ti S M B; do
+            test -d "$app/RapidNet_${variant}.mlmodelc"
+          done
           mkdir -p "$RUNNER_TEMP/rapidnet-ipa/Payload"
           ditto "$app" "$RUNNER_TEMP/rapidnet-ipa/Payload/SwiftUITodo.app"
           cd "$RUNNER_TEMP/rapidnet-ipa"

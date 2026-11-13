@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1B2C3D4E5F601020304050D /* RapidNet_B.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F601020304050C /* RapidNet_B.mlmodel */; };
+		A1B2C3D4E5F601020304050B /* RapidNet_S.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F601020304050A /* RapidNet_S.mlmodel */; };
+		A1B2C3D4E5F6010203040509 /* RapidNet_Ti.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6010203040508 /* RapidNet_Ti.mlmodel */; };
 		A1B2C3D4E5F6010203040507 /* RapidNet_M.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6010203040506 /* RapidNet_M.mlmodel */; };
 		031596AE22A5BDBA001BBA1B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031596AD22A5BDBA001BBA1B /* AppDelegate.swift */; };
 		031596B022A5BDBA001BBA1B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031596AF22A5BDBA001BBA1B /* SceneDelegate.swift */; };
@@ -17,6 +20,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A1B2C3D4E5F601020304050C /* RapidNet_B.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = RapidNet_B.mlmodel; sourceTree = "<group>"; };
+		A1B2C3D4E5F601020304050A /* RapidNet_S.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = RapidNet_S.mlmodel; sourceTree = "<group>"; };
+		A1B2C3D4E5F6010203040508 /* RapidNet_Ti.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = RapidNet_Ti.mlmodel; sourceTree = "<group>"; };
 		A1B2C3D4E5F6010203040506 /* RapidNet_M.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = RapidNet_M.mlmodel; sourceTree = "<group>"; };
 		031596AA22A5BDBA001BBA1B /* SwiftUITodo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftUITodo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		031596AD22A5BDBA001BBA1B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +75,9 @@
 				031596C122A5BDE8001BBA1B /* Task.swift */,
 				031596B122A5BDBA001BBA1B /* TaskListView.swift */,
 				A1B2C3D4E5F6010203040506 /* RapidNet_M.mlmodel */,
+				A1B2C3D4E5F601020304050C /* RapidNet_B.mlmodel */,
+				A1B2C3D4E5F601020304050A /* RapidNet_S.mlmodel */,
+				A1B2C3D4E5F6010203040508 /* RapidNet_Ti.mlmodel */,
 				031596CB22A5F360001BBA1B /* TaskItemView.swift */,
 				031596C922A5DDE0001BBA1B /* TaskEditView.swift */,
 				C8E0A25822A789D100E940E8 /* UserDefaultsValue.swift */,
@@ -163,6 +172,9 @@
 				031596B022A5BDBA001BBA1B /* SceneDelegate.swift in Sources */,
 				031596B222A5BDBA001BBA1B /* TaskListView.swift in Sources */,
 				A1B2C3D4E5F6010203040507 /* RapidNet_M.mlmodel in Sources */,
+				A1B2C3D4E5F601020304050D /* RapidNet_B.mlmodel in Sources */,
+				A1B2C3D4E5F601020304050B /* RapidNet_S.mlmodel in Sources */,
+				A1B2C3D4E5F6010203040509 /* RapidNet_Ti.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
