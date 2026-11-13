@@ -125,7 +125,6 @@ private final class SegmentationFrames: NSObject, AVCaptureVideoDataOutputSample
     private let context = CIContext()
     private let colorSpace = CGColorSpace(name: CGColorSpace.sRGB) ?? CGColorSpaceCreateDeviceRGB()
     private let inputSize = 512
-    private let maskSize = 128
     private let opacity: UInt8 = 110
     private var model: MLModel?
     private var input: MLMultiArray?
@@ -161,7 +160,9 @@ private final class SegmentationFrames: NSObject, AVCaptureVideoDataOutputSample
         guard !failureReported, let buffer = CMSampleBufferGetImageBuffer(sampleBuffer),
               let model, let input, let features else { return }
         do {
-            let square = prepare(buffer, into: input)
+            guard let square = prepare(buffer, into: input) else {
+                throw SegmentationError.message("Could not read the camera frame.")
+            }
             let clock = ProcessInfo.processInfo
             let predictionStart = clock.systemUptime
             let result = try model.prediction(from: features)
@@ -184,7 +185,7 @@ private final class SegmentationFrames: NSObject, AVCaptureVideoDataOutputSample
         }
     }
 
-    private func prepare(_ buffer: CVPixelBuffer, into input: MLMultiArray) -> CIImage {
+    private func prepare(_ buffer: CVPixelBuffer, into input: MLMultiArray) -> CIImage? {
         let frame = CIImage(cvPixelBuffer: buffer)
         let extent = frame.extent
         let side = min(extent.width, extent.height)
@@ -193,41 +194,50 @@ private final class SegmentationFrames: NSObject, AVCaptureVideoDataOutputSample
         let square = frame.cropped(to: crop)
             .transformed(by: CGAffineTransform(translationX: -crop.minX, y: -crop.minY))
             .transformed(by: CGAffineTransform(scaleX: scale, y: scale))
+        guard let image = context.createCGImage(square, from: square.extent) else { return nil }
         var pixels = [UInt8](repeating: 0, count: inputSize * inputSize * 4)
-        pixels.withUnsafeMutableBytes { bytes in
-            guard let address = bytes.baseAddress else { return }
-            context.render(square, toBitmap: address, rowBytes: inputSize * 4,
-                           bounds: square.extent, format: .RGBA8, colorSpace: colorSpace)
+        let didDraw = pixels.withUnsafeMutableBytes { bytes -> Bool in
+            let bitmapInfo = CGBitmapInfo.byteOrder32Big.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue
+            guard let bitmap = CGContext(data: bytes.baseAddress, width: inputSize, height: inputSize,
+                                         bitsPerComponent: 8, bytesPerRow: inputSize * 4,
+                                         space: colorSpace, bitmapInfo: bitmapInfo) else { return false }
+            bitmap.draw(image, in: CGRect(x: 0, y: 0, width: CGFloat(inputSize), height: CGFloat(inputSize)))
+            return true
         }
+        guard didDraw else { return nil }
         let values = input.dataPointer.bindMemory(to: Float.self, capacity: input.count)
         let mean: [Float] = [123.675, 116.28, 103.53]
         let deviation: [Float] = [58.395, 57.12, 57.375]
         let plane = inputSize * inputSize
-        for row in 0..<inputSize {
-            for col in 0..<inputSize {
-                let offset = row * inputSize + col
-                let rgba = ((inputSize - 1 - row) * inputSize + col) * 4
-                for channel in 0..<3 {
-                    values[channel * plane + offset] = (Float(pixels[rgba + channel]) - mean[channel]) / deviation[channel]
-                }
+        // Use the same upright image for the model and the preview.
+        for channel in 0..<3 {
+            for offset in 0..<plane {
+                values[channel * plane + offset] = (Float(pixels[offset * 4 + channel]) - mean[channel]) / deviation[channel]
             }
         }
-        return square
+        return CIImage(cgImage: image)
     }
 
     private func makeMask(_ classes: MLMultiArray) -> CIImage? {
-        guard classes.count == maskSize * maskSize,
+        let maskSize = inputSize
+        guard classes.dataType == .float32, classes.count == maskSize * maskSize,
               Array(classes.shape.map(\.intValue).suffix(2)) == [maskSize, maskSize] else { return nil }
+        let strides = Array(classes.strides.map(\.intValue).suffix(2))
+        guard strides.count == 2, strides.allSatisfy({ $0 > 0 }) else { return nil }
+        let capacity = (maskSize - 1) * (strides[0] + strides[1]) + 1
+        let values = classes.dataPointer.bindMemory(to: Float.self, capacity: capacity)
+        let colors = palette.map { color in color.map { UInt8(Int($0) * Int(opacity) / 255) } }
         var rgba = Data(count: maskSize * maskSize * 4)
         rgba.withUnsafeMutableBytes { (bytes: UnsafeMutableRawBufferPointer) in
             for row in 0..<maskSize {
                 for col in 0..<maskSize {
-                    let id = classes[row * maskSize + col].intValue
-                    guard palette.indices.contains(id) else { continue }
+                    let value = values[row * strides[0] + col * strides[1]]
+                    guard value.isFinite, value >= 0, value < Float(colors.count) else { continue }
+                    let color = colors[Int(value)]
                     let offset = (row * maskSize + col) * 4
-                    for channel in 0..<3 {
-                        bytes[offset + channel] = UInt8(Int(palette[id][channel]) * Int(opacity) / 255)
-                    }
+                    bytes[offset] = color[0]
+                    bytes[offset + 1] = color[1]
+                    bytes[offset + 2] = color[2]
                     bytes[offset + 3] = opacity
                 }
             }
@@ -237,7 +247,6 @@ private final class SegmentationFrames: NSObject, AVCaptureVideoDataOutputSample
                                   bitsPerPixel: 32, bytesPerRow: maskSize * 4, space: colorSpace,
                                   bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue),
                                   provider: provider, decode: nil, shouldInterpolate: false, intent: .defaultIntent) else { return nil }
-        let scale = CGFloat(inputSize) / CGFloat(maskSize)
-        return CIImage(cgImage: image).samplingNearest().transformed(by: CGAffineTransform(scaleX: scale, y: scale))
+        return CIImage(cgImage: image)
     }
 }
