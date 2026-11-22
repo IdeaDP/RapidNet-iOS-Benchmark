@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF00C1A55F1E000000000002 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00C1A55F1E000000000001 /* Theme.swift */; };
+		DF00C1A55F1E000000000004 /* ImageClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00C1A55F1E000000000003 /* ImageClassifier.swift */; };
+		DF00C1A55F1E000000000006 /* ClassificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF00C1A55F1E000000000005 /* ClassificationView.swift */; };
+		DF00C1A55F1E000000000008 /* RapidNet_Ti_Classifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = DF00C1A55F1E000000000007 /* RapidNet_Ti_Classifier.mlmodel */; };
+		DF00C1A55F1E00000000000A /* RapidNet_S_Classifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = DF00C1A55F1E000000000009 /* RapidNet_S_Classifier.mlmodel */; };
+		DF00C1A55F1E00000000000C /* RapidNet_M_Classifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = DF00C1A55F1E00000000000B /* RapidNet_M_Classifier.mlmodel */; };
+		DF00C1A55F1E00000000000E /* RapidNet_B_Classifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = DF00C1A55F1E00000000000D /* RapidNet_B_Classifier.mlmodel */; };
+		DF00C1A55F1E000000000010 /* RapidNet_ImageNet_Hierarchy.json in Resources */ = {isa = PBXBuildFile; fileRef = DF00C1A55F1E00000000000F /* RapidNet_ImageNet_Hierarchy.json */; };
+		DF00C1A55F1E000000000012 /* Sample_Cat.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DF00C1A55F1E000000000011 /* Sample_Cat.jpg */; };
+		DF00C1A55F1E000000000014 /* Sample_Coffee.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DF00C1A55F1E000000000013 /* Sample_Coffee.jpg */; };
+		DF00C1A55F1E000000000016 /* Sample_Rocket.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DF00C1A55F1E000000000015 /* Sample_Rocket.jpg */; };
 		A1B2C3D4E5F601020304051B /* RapidNet_COCO.json in Resources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F601020304051A /* RapidNet_COCO.json */; };
 		A1B2C3D4E5F6010203040519 /* RapidNet_M_BoxHead.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6010203040518 /* RapidNet_M_BoxHead.mlmodel */; };
 		A1B2C3D4E5F6010203040517 /* RapidNet_M_DetectorFeatures.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6010203040516 /* RapidNet_M_DetectorFeatures.mlmodel */; };
@@ -27,6 +38,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DF00C1A55F1E000000000001 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		DF00C1A55F1E000000000003 /* ImageClassifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageClassifier.swift; sourceTree = "<group>"; };
+		DF00C1A55F1E000000000005 /* ClassificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationView.swift; sourceTree = "<group>"; };
+		DF00C1A55F1E000000000007 /* RapidNet_Ti_Classifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = RapidNet_Ti_Classifier.mlmodel; sourceTree = "<group>"; };
+		DF00C1A55F1E000000000009 /* RapidNet_S_Classifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = RapidNet_S_Classifier.mlmodel; sourceTree = "<group>"; };
+		DF00C1A55F1E00000000000B /* RapidNet_M_Classifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = RapidNet_M_Classifier.mlmodel; sourceTree = "<group>"; };
+		DF00C1A55F1E00000000000D /* RapidNet_B_Classifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = RapidNet_B_Classifier.mlmodel; sourceTree = "<group>"; };
+		DF00C1A55F1E00000000000F /* RapidNet_ImageNet_Hierarchy.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RapidNet_ImageNet_Hierarchy.json; sourceTree = "<group>"; };
+		DF00C1A55F1E000000000011 /* Sample_Cat.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Sample_Cat.jpg; sourceTree = "<group>"; };
+		DF00C1A55F1E000000000013 /* Sample_Coffee.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Sample_Coffee.jpg; sourceTree = "<group>"; };
+		DF00C1A55F1E000000000015 /* Sample_Rocket.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Sample_Rocket.jpg; sourceTree = "<group>"; };
 		A1B2C3D4E5F601020304051A /* RapidNet_COCO.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RapidNet_COCO.json; sourceTree = "<group>"; };
 		A1B2C3D4E5F6010203040518 /* RapidNet_M_BoxHead.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = RapidNet_M_BoxHead.mlmodel; sourceTree = "<group>"; };
 		A1B2C3D4E5F6010203040516 /* RapidNet_M_DetectorFeatures.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = RapidNet_M_DetectorFeatures.mlmodel; sourceTree = "<group>"; };
@@ -88,6 +110,17 @@
 				031596C722A5C661001BBA1B /* UserData.swift */,
 				031596C122A5BDE8001BBA1B /* Task.swift */,
 				031596B122A5BDBA001BBA1B /* TaskListView.swift */,
+				DF00C1A55F1E000000000001 /* Theme.swift */,
+				DF00C1A55F1E000000000003 /* ImageClassifier.swift */,
+				DF00C1A55F1E000000000005 /* ClassificationView.swift */,
+				DF00C1A55F1E000000000007 /* RapidNet_Ti_Classifier.mlmodel */,
+				DF00C1A55F1E000000000009 /* RapidNet_S_Classifier.mlmodel */,
+				DF00C1A55F1E00000000000B /* RapidNet_M_Classifier.mlmodel */,
+				DF00C1A55F1E00000000000D /* RapidNet_B_Classifier.mlmodel */,
+				DF00C1A55F1E00000000000F /* RapidNet_ImageNet_Hierarchy.json */,
+				DF00C1A55F1E000000000011 /* Sample_Cat.jpg */,
+				DF00C1A55F1E000000000013 /* Sample_Coffee.jpg */,
+				DF00C1A55F1E000000000015 /* Sample_Rocket.jpg */,
 				A1B2C3D4E5F6010203040506 /* RapidNet_M.mlmodel */,
 				A1B2C3D4E5F601020304051A /* RapidNet_COCO.json */,
 				A1B2C3D4E5F6010203040518 /* RapidNet_M_BoxHead.mlmodel */,
@@ -178,6 +211,10 @@
 			files = (
 				A1B2C3D4E5F601020304051B /* RapidNet_COCO.json in Resources */,
 				A1B2C3D4E5F6010203040513 /* RapidNet_ADE20K.json in Resources */,
+				DF00C1A55F1E000000000010 /* RapidNet_ImageNet_Hierarchy.json in Resources */,
+				DF00C1A55F1E000000000012 /* Sample_Cat.jpg in Resources */,
+				DF00C1A55F1E000000000014 /* Sample_Coffee.jpg in Resources */,
+				DF00C1A55F1E000000000016 /* Sample_Rocket.jpg in Resources */,
 				031596BA22A5BDBB001BBA1B /* LaunchScreen.storyboard in Resources */,
 				031596B722A5BDBB001BBA1B /* Preview Assets.xcassets in Resources */,
 				031596B422A5BDBB001BBA1B /* Assets.xcassets in Resources */,
@@ -199,6 +236,13 @@
 				031596AE22A5BDBA001BBA1B /* AppDelegate.swift in Sources */,
 				031596B022A5BDBA001BBA1B /* SceneDelegate.swift in Sources */,
 				031596B222A5BDBA001BBA1B /* TaskListView.swift in Sources */,
+				DF00C1A55F1E000000000002 /* Theme.swift in Sources */,
+				DF00C1A55F1E000000000004 /* ImageClassifier.swift in Sources */,
+				DF00C1A55F1E000000000006 /* ClassificationView.swift in Sources */,
+				DF00C1A55F1E000000000008 /* RapidNet_Ti_Classifier.mlmodel in Sources */,
+				DF00C1A55F1E00000000000A /* RapidNet_S_Classifier.mlmodel in Sources */,
+				DF00C1A55F1E00000000000C /* RapidNet_M_Classifier.mlmodel in Sources */,
+				DF00C1A55F1E00000000000E /* RapidNet_B_Classifier.mlmodel in Sources */,
 				A1B2C3D4E5F6010203040507 /* RapidNet_M.mlmodel in Sources */,
 				A1B2C3D4E5F601020304050D /* RapidNet_B.mlmodel in Sources */,
 				A1B2C3D4E5F601020304050B /* RapidNet_S.mlmodel in Sources */,
