@@ -10,12 +10,23 @@ The model picker offers each bundled RapidNet variant: Ti, S, M, and B. The sele
 
 The variants are scaled versions of the same CNN family. From Ti to B, the network gets wider and deeper, which raises compute and model capacity. This usually improves accuracy while increasing inference time. The table gives the paper's ImageNet-1K classification results at 224×224 and its Core ML latency measured on an iPhone 13 mini NPU:
 
-| Variant | Parameters | Compute (GMACs) | ImageNet-1K top-1 | Paper latency |
-|---|---:|---:|---:|---:|
-| RapidNet-Ti | 6.6 million | 0.6 | 76.3% | 0.9 ms |
-| RapidNet-S | 9.2 million | 0.9 | 78.6% | 1.1 ms |
-| RapidNet-M | 17.3 million | 1.6 | 81.0% | 1.6 ms |
-| RapidNet-B | 30.5 million | 3.4 | 82.8% | 2.7 ms |
+| Variant | Parameters | Compute (GMACs) | ImageNet-1K top-1 | Paper latency | Your iPhone 16 Pro mean |
+|---|---:|---:|---:|---:|---:|
+| RapidNet-Ti | 6.6 million | 0.6 | 76.3% | 0.9 ms | **0.536 ms** |
+| RapidNet-S | 9.2 million | 0.9 | 78.6% | 1.1 ms | **0.713 ms** |
+| RapidNet-M | 17.3 million | 1.6 | 81.0% | 1.6 ms | **1.003 ms** |
+| RapidNet-B | 30.5 million | 3.4 | 82.8% | 2.7 ms | **1.657 ms** |
+
+Your five recorded iPhone 16 Pro latency readings (milliseconds) were:
+
+| Variant | Run 1 | Run 2 | Run 3 | Run 4 | Run 5 | Mean |
+|---|---:|---:|---:|---:|---:|---:|
+| RapidNet-Ti | 0.528 | 0.528 | 0.563 | 0.532 | 0.529 | 0.536 |
+| RapidNet-S | 0.709 | 0.716 | 0.715 | 0.707 | 0.717 | 0.713 |
+| RapidNet-M | 0.996 | 1.005 | 1.010 | 1.004 | 0.999 | 1.003 |
+| RapidNet-B | 1.657 | 1.659 | 1.654 | 1.654 | 1.660 | 1.657 |
+
+These runs were recorded on iOS 26.6 with **CPU + Neural Engine** selected and 1,450 timing samples retained per run. They are measurements from your app on your phone, not the paper's iPhone 13 mini results.
 
 **How to choose:** Ti prioritizes speed and lower compute; B prioritizes the highest ImageNet accuracy in this family and needs the most compute. S and M are intermediate trade-offs. Top-1 accuracy is the percentage of validation images where the model's highest-scoring class is correct. Parameters count learned weights; GMACs estimate computation for one 224×224 classification input.
 
@@ -25,7 +36,7 @@ These latency figures are the paper's reference results, not expected measuremen
 
 The benchmark reports average prediction latency in milliseconds and throughput in predictions per second. It also shows the compute setting, number of retained timing samples, and the iPhone's thermal state at the start and end.
 
-The benchmark uses a synthetic Float32 input, not camera frames or an ImageNet validation set. It performs 50 rounds of 50 predictions: one warm-up prediction per round is excluded, and the 10 slowest and 10 fastest measured predictions in each round are trimmed. This is a device speed benchmark, not a measure of model accuracy or a complete reproduction of a research-paper evaluation.
+The benchmark uses a synthetic Float32 224×224 input, not camera frames or an ImageNet validation set. It performs 50 rounds of 50 predictions: one warm-up prediction per round is excluded, and the 10 slowest and 10 fastest measured predictions in each round are trimmed. This is a device speed benchmark, not a measure of model accuracy or a complete reproduction of a research-paper evaluation.
 
 ### Open Segmentation Camera
 
