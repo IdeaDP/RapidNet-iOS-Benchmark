@@ -8,6 +8,19 @@ The SwiftUI app runs RapidNet Core ML models on an iPhone. It includes a model b
 
 The model picker offers each bundled RapidNet variant: Ti, S, M, and B. The selected variant is used by **Run Benchmark**. The live camera modes currently use RapidNet-M.
 
+The variants are scaled versions of the same CNN family. From Ti to B, the network gets wider and deeper, which raises compute and model capacity. This usually improves accuracy while increasing inference time. The table gives the paper's ImageNet-1K classification results at 224×224 and its Core ML latency measured on an iPhone 13 mini NPU:
+
+| Variant | Parameters | Compute (GMACs) | ImageNet-1K top-1 | Paper latency |
+|---|---:|---:|---:|---:|
+| RapidNet-Ti | 6.6 million | 0.6 | 76.3% | 0.9 ms |
+| RapidNet-S | 9.2 million | 0.9 | 78.6% | 1.1 ms |
+| RapidNet-M | 17.3 million | 1.6 | 81.0% | 1.6 ms |
+| RapidNet-B | 30.5 million | 3.4 | 82.8% | 2.7 ms |
+
+**How to choose:** Ti prioritizes speed and lower compute; B prioritizes the highest ImageNet accuracy in this family and needs the most compute. S and M are intermediate trade-offs. Top-1 accuracy is the percentage of validation images where the model's highest-scoring class is correct. Parameters count learned weights; GMACs estimate computation for one 224×224 classification input.
+
+These latency figures are the paper's reference results, not expected measurements for every phone. Use **Run Benchmark** on your own iPhone to compare the variants on the same device. The picker changes the classification model benchmarked; the live segmentation and detection screens use RapidNet-M task models regardless of the picker selection. More details: [RapidNet paper, Table 2](https://openaccess.thecvf.com/content/WACV2025/papers/Munir_RapidNet_Multi-Level_Dilated_Convolution_Based_Mobile_Backbone_WACV_2025_paper.pdf) and [official RapidNet repository](https://github.com/mmunir127/RapidNet-Official).
+
 ### Run Benchmark
 
 The benchmark reports average prediction latency in milliseconds and throughput in predictions per second. It also shows the compute setting, number of retained timing samples, and the iPhone's thermal state at the start and end.
